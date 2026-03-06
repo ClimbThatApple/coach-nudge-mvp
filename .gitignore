@@ -33,3 +33,6 @@ pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# Teams app package (build artifact)
+coach-nudge-teams.zip

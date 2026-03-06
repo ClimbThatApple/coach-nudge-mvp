@@ -1,0 +1,72 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.17",
+  "version": "1.0.0",
+  "id": "c39c9762-3085-4748-90a2-ebadc7895047",
+  "developer": {
+    "name": "Coach Nudge",
+    "websiteUrl": "https://coach-nudge.vercel.app",
+    "privacyUrl": "https://coach-nudge.vercel.app/privacy",
+    "termsOfUseUrl": "https://coach-nudge.vercel.app/terms"
+  },
+  "name": {
+    "short": "Coach Nudge",
+    "full": "Coach Nudge - AI Coaching Assistant"
+  },
+  "description": {
+    "short": "AI-powered coaching nudges for managers",
+    "full": "Coach Nudge helps managers stay on top of their coaching relationships with AI-generated reflection prompts and coaching suggestions delivered directly in Microsoft Teams."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#3B82F6",
+  "staticTabs": [
+    {
+      "entityId": "dashboard",
+      "name": "Dashboard",
+      "contentUrl": "https://coach-nudge.vercel.app/teams/tab",
+      "scopes": ["personal"]
+    },
+    {
+      "entityId": "settings",
+      "name": "Settings",
+      "contentUrl": "https://coach-nudge.vercel.app/teams/tab?page=settings",
+      "scopes": ["personal"]
+    }
+  ],
+  "bots": [
+    {
+      "botId": "c39c9762-3085-4748-90a2-ebadc7895047",
+      "scopes": ["personal"],
+      "supportsFiles": false,
+      "isNotificationOnly": false,
+      "commandLists": [
+        {
+          "scopes": ["personal"],
+          "commands": [
+            {
+              "title": "nudge",
+              "description": "Get a coaching nudge for a supervisee"
+            },
+            {
+              "title": "list",
+              "description": "List your supervisees"
+            },
+            {
+              "title": "synthesis",
+              "description": "Get a coaching synthesis for a supervisee"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": ["coach-nudge.vercel.app"],
+  "webApplicationInfo": {
+    "id": "c39c9762-3085-4748-90a2-ebadc7895047",
+    "resource": "api://coach-nudge.vercel.app/c39c9762-3085-4748-90a2-ebadc7895047"
+  }
+}

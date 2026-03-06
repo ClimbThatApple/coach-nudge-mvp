@@ -4,5 +4,15 @@
       "source": "/api/openai/:path*",
       "destination": "https://portkey.bain.dev/v1/:path*"
     }
+  ],
+  "headers": [
+    {
+      "source": "/api/sync/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+      ]
+    }
   ]
 }
