@@ -36,3 +36,4 @@ pnpm-debug.log*
 
 # Teams app package (build artifact)
 coach-nudge-teams.zip
+.vercel

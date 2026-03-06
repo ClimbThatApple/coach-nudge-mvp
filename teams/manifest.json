@@ -5,9 +5,9 @@
   "id": "c39c9762-3085-4748-90a2-ebadc7895047",
   "developer": {
     "name": "Coach Nudge",
-    "websiteUrl": "https://coach-nudge.vercel.app",
-    "privacyUrl": "https://coach-nudge.vercel.app/privacy",
-    "termsOfUseUrl": "https://coach-nudge.vercel.app/terms"
+    "websiteUrl": "https://coach-nudge-mvp-indol.vercel.app",
+    "privacyUrl": "https://coach-nudge-mvp-indol.vercel.app/privacy",
+    "termsOfUseUrl": "https://coach-nudge-mvp-indol.vercel.app/terms"
   },
   "name": {
     "short": "Coach Nudge",
@@ -26,13 +26,13 @@
     {
       "entityId": "dashboard",
       "name": "Dashboard",
-      "contentUrl": "https://coach-nudge.vercel.app/teams/tab",
+      "contentUrl": "https://coach-nudge-mvp-indol.vercel.app/teams/tab",
       "scopes": ["personal"]
     },
     {
       "entityId": "settings",
       "name": "Settings",
-      "contentUrl": "https://coach-nudge.vercel.app/teams/tab?page=settings",
+      "contentUrl": "https://coach-nudge-mvp-indol.vercel.app/teams/tab?page=settings",
       "scopes": ["personal"]
     }
   ],
@@ -64,9 +64,9 @@
     }
   ],
   "permissions": ["identity", "messageTeamMembers"],
-  "validDomains": ["coach-nudge.vercel.app"],
+  "validDomains": ["coach-nudge-mvp-indol.vercel.app"],
   "webApplicationInfo": {
     "id": "c39c9762-3085-4748-90a2-ebadc7895047",
-    "resource": "api://coach-nudge.vercel.app/c39c9762-3085-4748-90a2-ebadc7895047"
+    "resource": "api://coach-nudge-mvp-indol.vercel.app/c39c9762-3085-4748-90a2-ebadc7895047"
   }
 }
