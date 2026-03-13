@@ -234,18 +234,21 @@ async function main() {
   await page.waitForSelector('h1:has-text("Calendar")');
   await injectCursor(page);
   await moveCursorTo(page, 640, 300, 1);
-  await pause(2000);
-  await snap(page, 'calendar-week');
+  await pause(1500);
+  await snap(page, 'calendar-nudge-banners');
 
-  // Switch to list view for clearer event details
-  await showBanner(page, 'Upcoming meetings', 'Each event shows which supervisees attend and what coaching opportunities apply', '#6d28d9');
+  // Switch to list view — shows AI matching clearly
+  await showBanner(page, 'List View', 'Each event shows attendees and matched coaching opportunities', '#6d28d9');
   const listBtn = page.getByRole('button', { name: /list/i });
   if (await listBtn.isVisible().catch(() => false)) {
     await cursorClick(page, listBtn, 300);
+    await pause(800);
+    // Scroll down to show list event cards with matched development opps
+    await page.mouse.wheel(0, 600);
     await pause(1500);
     await snap(page, 'calendar-list');
   }
-  await pause(1000);
+  await pause(800);
 
   // ═══ CORE LOOP: The three nudges ═══
 
@@ -400,28 +403,40 @@ async function main() {
   await snap(page, 'assistant-overview');
   await pause(800);
 
+  // ═══ NUDGE SETTINGS ═══
+  await showBanner(page, 'Nudge Settings', 'Set days, times, and frequency for each team member individually', '#7c3aed');
+  await pause(600);
+  await cursorClick(page, page.locator('aside a[href="/settings"]').first());
+  await page.goto(`${BASE}/settings?pw=true`);
+  await page.waitForSelector('h1:has-text("Nudge")');
+  await injectCursor(page);
+  await moveCursorTo(page, 640, 300, 1);
+  await pause(2000);
+  await snap(page, 'nudge-settings');
+  await pause(1000);
+
   // ═══ CLOSING ═══
   await hideBanner(page);
   await showCard(page, 'pw-close', 'linear-gradient(135deg, #111827 0%, #1f2937 100%)',
-    `<div style="text-align:center;max-width:700px;padding:48px">
+    `<div style="text-align:center;max-width:720px;padding:48px">
       <div style="font-size:48px;font-weight:800;color:white">CoachNudge</div>
-      <div style="font-size:20px;color:rgba(255,255,255,0.6);margin-top:16px">Better coaching, one nudge at a time.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;text-align:left">
-        <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:16px">
-          <div style="font-size:15px;font-weight:600;color:white">Reflection Prompts</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px">Periodic check-ins on each team member</div>
+      <div style="font-size:22px;color:rgba(255,255,255,0.6);margin-top:16px">Better coaching, one nudge at a time.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px;text-align:left">
+        <div style="background:rgba(255,255,255,0.07);border-radius:12px;padding:18px">
+          <div style="font-size:17px;font-weight:700;color:white">Reflection Prompts</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px">Periodic check-ins on each team member</div>
         </div>
-        <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:16px">
-          <div style="font-size:15px;font-weight:600;color:white">Meeting Prep</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px">AI coaching tips matched to development goals</div>
+        <div style="background:rgba(255,255,255,0.07);border-radius:12px;padding:18px">
+          <div style="font-size:17px;font-weight:700;color:white">AI Meeting Prep</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px">Coaching tips matched to development goals</div>
         </div>
-        <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:16px">
-          <div style="font-size:15px;font-weight:600;color:white">Post-Meeting Debriefs</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px">Capture observations right after key meetings</div>
+        <div style="background:rgba(255,255,255,0.07);border-radius:12px;padding:18px">
+          <div style="font-size:17px;font-weight:700;color:white">Post-Meeting Debriefs</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px">Capture observations right after key meetings</div>
         </div>
-        <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:16px">
-          <div style="font-size:15px;font-weight:600;color:white">Assistant Tracking</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px">Notes, improvement areas, and weekly recaps</div>
+        <div style="background:rgba(255,255,255,0.07);border-radius:12px;padding:18px">
+          <div style="font-size:17px;font-weight:700;color:white">Assistant Tracking</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px">Notes, improvement areas, and weekly recaps</div>
         </div>
       </div>
     </div>`);
