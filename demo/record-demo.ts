@@ -126,15 +126,16 @@ async function showBanner(page: Page, text: string, sub: string, color: string) 
       el = document.createElement('div');
       el.id = 'pw-demo-banner';
       Object.assign(el.style, {
-        position: 'fixed', top: '64px', left: '256px', right: '0',
-        zIndex: '99998', padding: '0 16px',
+        position: 'fixed', top: '12px', left: '200px', right: '140px',
+        zIndex: '99998',
+        display: 'flex', justifyContent: 'center',
         transition: 'opacity 0.3s ease', opacity: '0', pointerEvents: 'none',
       });
       document.body.appendChild(el);
     }
-    el.innerHTML = `<div style="background:${color};color:#fff;border-radius:0 0 10px 10px;padding:8px 16px;box-shadow:0 2px 12px rgba(0,0,0,0.15);max-width:600px">
-      <span style="font-weight:600;font-size:13px">${text}</span>
-      <span style="opacity:0.8;font-size:12px;margin-left:8px">${sub}</span>
+    el.innerHTML = `<div style="background:${color};color:#fff;border-radius:8px;padding:6px 16px;box-shadow:0 2px 12px rgba(0,0,0,0.2);max-width:600px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+      <span style="font-weight:600;font-size:12px">${text}</span>
+      <span style="opacity:0.8;font-size:11px;margin-left:8px">${sub}</span>
     </div>`;
     void el.offsetHeight;
     el.style.opacity = '1';
@@ -225,9 +226,30 @@ async function main() {
   await pause(1500);
   await snap(page, 'dashboard');
 
+  // ═══ CALENDAR: Show how the system sees meetings ═══
+  await showBanner(page, 'Your Calendar', 'Meetings with coaching opportunities are highlighted automatically', '#6d28d9');
+  await pause(800);
+  await cursorClick(page, page.locator('aside a[href="/calendar"]').first());
+  await page.goto(`${BASE}/calendar?pw=true`);
+  await page.waitForSelector('h1:has-text("Calendar")');
+  await injectCursor(page);
+  await moveCursorTo(page, 640, 300, 1);
+  await pause(2000);
+  await snap(page, 'calendar-week');
+
+  // Switch to list view for clearer event details
+  await showBanner(page, 'Upcoming meetings', 'Each event shows which supervisees attend and what coaching opportunities apply', '#6d28d9');
+  const listBtn = page.getByRole('button', { name: /list/i });
+  if (await listBtn.isVisible().catch(() => false)) {
+    await cursorClick(page, listBtn, 300);
+    await pause(1500);
+    await snap(page, 'calendar-list');
+  }
+  await pause(1000);
+
   // ═══ CORE LOOP: The three nudges ═══
 
-  // -- Open Nick quickly
+  // -- Open Nick from sidebar
   await showBanner(page, 'Opening a team member', 'Each person has coaching notes, development goals, and documents', '#111827');
   await pause(600);
   await cursorClick(page, page.locator('aside a[href="/supervisee/supervisee-nick-chen"]').first());
